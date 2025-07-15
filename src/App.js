@@ -6,6 +6,11 @@ import './App.css';
 
 
 function BlackJackTable(){
+  // Dimensions of the screen
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
   const numberOfDecks = 2;
   // Player Hand
   const [playerHand, setPlayerHand] = useState([]);
@@ -21,9 +26,23 @@ function BlackJackTable(){
   const [inHand, setInHand] = useState(false);
   const [playerBust, setPlayerBust] = useState(false);
   const [currentGame, setCurrentGame] = useState(false);
+  const [firstHand, setFirstHand] = useState(false);
+  const [sameCard, setSameCard] = useState(false);
   const [gamePhase, setGamePhase] = useState('idle');
   // Has 4 phases idle, player-turn, dealer-turn, evaluate
 
+  // Window size
+  useEffect(() => {
+    const handleResize = () =>{
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+    // [] means it should only be ran when the componenet mounts
+  }, []);
   //                    General Deck Functions
   // ----------------------------------------------------------------------------------------------
 function calculateBet(){
@@ -70,6 +89,7 @@ function calculateBet(){
   // ----------------------------------------------------------------------------------------------
 
   const deal_cards = () =>{
+    if(calculateBet() > 0){ // Make sure the user puts money in to bet
     // Use the shuffled deck to deal 4 cards, 1 to player, 1 to dealer, 1 to player, 1 to dealer
     let firstCard = jsPop();
     let secondCard = jsPop();
@@ -78,19 +98,23 @@ function calculateBet(){
 
     let newPlayerHand = [firstCard, thirdCard];
     let newDealerHand = [secondCard, fourthCard];
+    
     // Set the hands of the dealer and the player
     setPlayerHand(newPlayerHand);
     setDealerHand(newDealerHand);
     setCurrentGame(true); // Currently in a game, so we should not deal a new set of cards
     setInHand(true); // We should play the game
     setPlayerBust(false); // Rest the players bust value
+    setFirstHand(true);
     setGamePhase('player-turn');
+    }
   };
 
   // Adds a card to the players hand
   const hit = (hand) => {
     // Check if the player is standing
     if(inHand){
+      setFirstHand(false);
       let nextCard = jsPop();
       setPlayerHand(playerHand => [...playerHand, nextCard]);
     }
@@ -222,7 +246,7 @@ function calculateBet(){
       displayString.push(<DisplayCard cardValue={hand[i]} />);
     }
     return (
-      <div>
+      <div className="hand">
         {displayString.map((item, index) => (
           <span key={index}>{item}</span>
         ))}

@@ -1,31 +1,63 @@
+/* Main container using flexbox instead of fixed grid for responsiveness */
 .container {
-  display: grid;
-grid-template-columns: 50% 50%;
+  display: flex;
+  flex-direction: column;
   background-color: dodgerblue;
   padding: 10px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .container > div {
   background-color: #f1f1f1;
   border: 1px solid black;
   padding: 20px;
-  font-size: 30px;
+  font-size: 1.2rem;
   text-align: center;
+  flex: 1;
+  margin: 5px;
 }
 
+button {
+  min-width: 80px;
+  font-size: 1rem;
+  margin: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  touch-action: manipulation;
+}
+
+/* Dashboard panel */
 .Display-values {
-  float: right;
-  width: 15%;
   background-color: lightblue;
   padding: 5%;
-  margin-left: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.betting_button {
+@media (min-width: 768px) {
+  .Display-values {
+    width: 25%;
+    margin-left: 10px;
+  }
+}
+
+/* Betting and deal buttons */
+.betting_button, .cool_button {
   --bg: #e74c3c;
   --text-color: #fff;
-  position: relative;
-  width: 150px;
+  width: 100%;
+  max-width: 200px;
+  margin: 8px auto;
+  display: block;
   border: none;
   background: var(--bg);
   color: var(--text-color);
@@ -34,53 +66,47 @@ grid-template-columns: 50% 50%;
   text-transform: uppercase;
   transition: 0.2s;
   border-radius: 5px;
-  opacity: 0.8;
+  opacity: 0.9;
   letter-spacing: 1px;
   box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
+  font-size: 1rem;
+  touch-action: manipulation;
 }
 
-.betting_button:hover {
-  opacity: 1;
-}
-
-.betting_button:active {
-  top: 4px;
-  box-shadow: #c0392b 0px 3px 2px,#000 0px 3px 5px;
-}
-
-.center-image {
-  max-width: 100%;
-  height: auto;
-}
-
-.Black-Jack{
-  float: center;
-  width: 50%;
-}
-
-.cool_button {
-  --bg: #e74c3c;
-  --text-color: #fff;
-  position: relative;
-  width: 150px;
-  border: none;
-  background: var(--bg);
-  color: var(--text-color);
-  padding: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: 0.2s;
-  border-radius: 5px;
-  opacity: 0.8;
-  letter-spacing: 1px;
-  box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
-}
-
+.betting_button:hover,
 .cool_button:hover {
   opacity: 1;
 }
 
+.betting_button:active,
 .cool_button:active {
   top: 4px;
-  box-shadow: #c0392b 0px 3px 2px,#000 0px 3px 5px;
+  box-shadow: #c0392b 0px 3px 2px, #000 0px 3px 5px;
+}
+
+/* Card images */
+.center-image {
+  max-width: 60px;
+  height: auto;
+  margin: 5px;
+}
+
+@media (max-width: 500px) {
+  .center-image {
+    max-width: 40px;
+  }
+}
+
+/* Hand display wrapper */
+.hand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Cleanup unused or incorrect classes */
+.Black-Jack {
+  width: 100%;
+  text-align: center;
 }
