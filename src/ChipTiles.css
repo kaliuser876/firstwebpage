@@ -1,0 +1,6 @@
+.chip {
+  display: inline-block;
+  image-rendering: pixelated;
+  margin: 4px;
+  border: 1px solid transparent; /* for debugging spacing */
+}

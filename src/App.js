@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import cardImages from './cardImages';
+import Chip from './Chip';
 
 import './App.css';
 
@@ -325,7 +326,9 @@ function calculateBet(){
   // Dashboard Functions for displaying information
 // ----------------------------------------------------------------------------------------------
   function BetAmountButton(props){
+
     function handle_betting(){
+      
       // Add the current bet + the buttons amount to the players bet
       if(playerMoney >= props.amount){
         
@@ -334,9 +337,13 @@ function calculateBet(){
       }
     }
 
+  
+    
     return (
-      <><button className='betting_button' onClick={handle_betting}>BET {props.amount}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
-    );
+          <button onClick={handle_betting} className='bet-button'>
+            <Chip set={props.set} index={props.index} />
+          </button>
+        );
   }
 
 function DisplayValues(props){  
@@ -366,20 +373,21 @@ function DisplayValues(props){
       <button onClick={reset_bet}>Reset Bet</button>
       <button onClick={remove_last_bet}>Remove Last Bet</button>
       <div>&nbsp;</div>
-      <span>
-        <BetAmountButton amount='5'/>
-        <BetAmountButton amount='10'/>
-        <BetAmountButton amount='25'/>
-        <BetAmountButton amount='50'/>
+      <span className='inline-chips'>
+        <p></p>
+        <BetAmountButton set={0} index={0} amount={5}/>
+        <BetAmountButton set={1} index={0} amount={10}/>
+        <BetAmountButton set={2} index={0} amount={25}/>
+        <BetAmountButton set={3} index={0} amount={100}/>
       </span>
       <div>&nbsp;</div>
       <div>&nbsp;</div>
       <div>&nbsp;</div>
       <span>
-        <BetAmountButton amount='100'/>
-        <BetAmountButton amount='250'/>
-        <BetAmountButton amount='500'/>
-        <BetAmountButton amount='1000'/>
+        <BetAmountButton set={4} index={0} amount={250}/>
+        <BetAmountButton set={5} index={0} amount={500}/>
+        <BetAmountButton set={6} index={0} amount={1000}/>
+        <BetAmountButton set={7} index={0} amount={5000}/>
       </span>
       </div>}
     </div>
@@ -390,7 +398,10 @@ function DisplayValues(props){
   
   return(
     <div className='container'>
+      
+    
       {currentGame && <div>
+        
       <p>Dealer Hand </p>
       {inHand ? <p><DisplayCard cardValue={dealerHand[0]} /><DisplayCard cardValue={-1}/></p> : <p>{displayHand(dealerHand)}</p>}
       {inHand ? <p>Dealer Total: {calculateTotal([dealerHand[0]])}</p> : <p>Dealer Total: {calculateTotal(dealerHand)}</p>}
