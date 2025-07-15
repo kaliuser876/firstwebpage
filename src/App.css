@@ -86,14 +86,16 @@ button {
 
 /* Card images */
 .center-image {
-  max-width: 60px;
+  max-width: 140px;
   height: auto;
   margin: 5px;
+  display: inline-block;
 }
 
 @media (max-width: 500px) {
   .center-image {
-    max-width: 40px;
+    max-width: 90px;
+    height: auto;
   }
 }
 

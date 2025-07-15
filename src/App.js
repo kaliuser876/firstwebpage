@@ -314,9 +314,11 @@ function calculateBet(){
     const imageKey = `${suit}_of_${value}`;
     const imageSrc = cardImages[imageKey];
 
+    const cardWidth = dimensions.width > 1000 ? 150 : dimensions.width > 600 ? 100 : 70;
+
     // Return the image of said card
     return (
-        <img src={imageSrc} alt={`${value} of ${suit}`} className='center-image' />
+        <img src={imageSrc} alt={`${value} of ${suit}`} className='center-image' style={{width: `${cardWidth}px`}} />
       );
   }
 
@@ -388,9 +390,7 @@ function DisplayValues(props){
   
   return(
     <div className='container'>
-      <div>
-      {!currentGame ? <button className='cool_button' onClick={deal_cards}>Deal</button> : <button className='cool_button'> ----</button>}
-      
+      {currentGame && <div>
       <p>Dealer Hand </p>
       {inHand ? <p><DisplayCard cardValue={dealerHand[0]} /><DisplayCard cardValue={-1}/></p> : <p>{displayHand(dealerHand)}</p>}
       {inHand ? <p>Dealer Total: {calculateTotal([dealerHand[0]])}</p> : <p>Dealer Total: {calculateTotal(dealerHand)}</p>}
@@ -400,8 +400,11 @@ function DisplayValues(props){
       <p>{displayHand(playerHand)}</p>
       <p>Player Total: {calculateTotal(playerHand)}</p>
       </div>
-  
-      <DisplayValues cardsRemaining={deck.length} money={playerMoney}/>
+      }
+      {!currentGame && <div>
+        <button className='cool_button' onClick={deal_cards}>Deal</button>
+        <DisplayValues cardsRemaining={deck.length} money={playerMoney}/>
+      </div>}
     </div>
   );
   
