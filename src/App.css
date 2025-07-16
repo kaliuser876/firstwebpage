@@ -55,7 +55,7 @@ button {
   border: none;
   background: transparent;
   padding: 0 12px;
-  margin: 0 24px;
+  margin: 0 96px;
   cursor: pointer;
   display: inline-block;
   transition: transform 0.15s ease, filter 0.15s ease;
@@ -79,7 +79,6 @@ button {
   outline-offset: 3px;
 }
 
-/* 🎯 COOL BUTTON */
 .cool_button {
   width: 100%;
   max-width: 200px;
@@ -115,6 +114,8 @@ button {
   height: auto;
   margin: 5px;
   display: inline-block;
+  image-rendering: pixelated;
+
 }
 
 @media (max-width: 500px) {
